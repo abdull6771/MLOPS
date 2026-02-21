@@ -34,8 +34,15 @@ jobs:
           python train.py
           ls -la artifacts
 
+      - name: Create zip archive
+        run: |
+          cd artifacts
+          zip -r ../ml-artifacts.zip .
+          cd ..
+          ls -lh ml-artifacts.zip
+
       - name: Upload artifacts
         uses: actions/upload-artifact@v4
         with:
           name: ml-artifacts-${{ matrix.python }}-${{ github.run_id }}
-          path: artifacts
+          path: ml-artifacts.zip
